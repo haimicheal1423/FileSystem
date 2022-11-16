@@ -24,6 +24,7 @@
 #include "mfs.h"
 #include "bitmap.h"
 #include "bitmap.c"
+#include "fsInit.h"
 #include "directory_entry.h"
 #include <time.h>
 #include <math.h>
@@ -96,7 +97,21 @@ int initFileSystem(uint64_t numberOfBlocks, uint64_t blockSize)
 	return 0;
 }
 
+VCB*getVCB()
+{
+	return VCBbuffer;
+}
+
+char*getBitmap()
+{
+	return bitmap;
+}
+
 void exitFileSystem()
 {
+	free(VCBbuffer);
+	VCBbuffer = NULL;
+	free(bitmap);
+	bitmap = NULL;
 	printf("System exiting\n");
 }

@@ -12,3 +12,16 @@
 *
 *
  **************************************************************/
+
+
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <stdio.h>
+#include <string.h>
+#include <math.h>
+
+#include "bitmap.h"
+#include "fsInit.c" //suppose to .h
+#include "mfs.h"
+#include "fsLow.h"
