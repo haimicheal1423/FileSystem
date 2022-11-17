@@ -22,6 +22,6 @@
 #include <math.h>
 
 #include "bitmap.h"
-#include "fsInit.c" //suppose to .h
+#include "fsInit.h"
 #include "mfs.h"
 #include "fsLow.h"

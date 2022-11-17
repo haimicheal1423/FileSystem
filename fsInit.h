@@ -25,23 +25,20 @@
 
 #include <dirent.h>
 
-// need to add #include
-// #include gives error
-
 
 #define FT_REGFILE	DT_REG
 #define FT_DIRECTORY DT_DIR
 #define FT_LINK	DT_LNK
 
 #ifndef uint64_t
-//typedef u_int64_t uint64_t;
+typedef u_int64_t uint64_t;
 #endif
 #ifndef uint32_t
-//typedef u_int32_t uint32_t;
+typedef u_int32_t uint32_t;
 #endif
 
 int initFileSystem (uint64_t numberOfBlocks, uint64_t blockSize);
-VolumeBlock*getVCB();
+VCB*getVCB();
 char*getBitmap();
 void exitFileSystem();
 
