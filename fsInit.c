@@ -25,9 +25,9 @@
 #include "bitmap.h"
 #include "bitmap.c"
 #include "fsInit.h"
-//#include "directory_entry.h"
 #include <time.h>
 #include <math.h>
+#include "directory_entry.h"
 
 VCB *VCBbuffer;
 char *bitmap;
