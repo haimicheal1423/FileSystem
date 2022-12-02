@@ -19,7 +19,7 @@
 #include <unistd.h>
 #include <time.h>
 #include "vcb.h"
-#include "directory_entry.h"
+// #include "directory_entry.h"
 
 #include "b_io.h"
 
@@ -35,8 +35,13 @@ typedef u_int64_t uint64_t;
 typedef u_int32_t uint32_t;
 #endif
 
+<<<<<<< HEAD
 int initFileSystem (uint64_t numberOfBlocks, uint64_t blockSize);
 VolumeBlock*getVCB();
+=======
+int initFileSystem (uint64_t numOfBlocks, uint64_t sizeOfBlocks);
+VCB*getVCB();
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
 char*getBitmap();
 void exitFileSystem();
 

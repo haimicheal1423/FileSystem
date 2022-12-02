@@ -24,7 +24,11 @@
 #include "vcb.h"
 #include "directory_entry.h"
 
+#include<stdlib.h>
+#include<stddef.h>
 #include "b_io.h"
+#include "vcb.h"
+#include "directory_entry.h"
 
 #include <dirent.h>
 #define FT_REGFILE	DT_REG
@@ -99,4 +103,3 @@ char* getFileName(directoryEntry* newDir);
 int fs_mvdir(const char *pathname, const char *destination);
 
 #endif
-

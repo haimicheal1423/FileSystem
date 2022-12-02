@@ -22,10 +22,18 @@
 #include "fsLow.h"
 #include <math.h>
 #include "bitmap.h"
+<<<<<<< HEAD
 #include <time.h>
 #include <string.h>
 #include "directory_entry.h"
 #include "fsInit.h"
+=======
+#include "bitmap.c"
+#include "fsInit.h"
+#include <time.h>
+#include <math.h>
+#include "directory_entry.h"
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
 
 VolumeBlock*VCBbuffer;
 char*bitmap;
