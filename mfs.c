@@ -8,7 +8,7 @@
 *
 * File: mfs.c
 *
-* Description: Makes functions that interacts with the file system
+* Description: Makes functions that interacts with the file system//
 *
 *
  **************************************************************/
