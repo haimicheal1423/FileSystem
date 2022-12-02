@@ -62,6 +62,15 @@ uint64_t LBAwrite (void * buffer, uint64_t lbaCount, uint64_t lbaPosition);
 
 uint64_t LBAread (void * buffer, uint64_t lbaCount, uint64_t lbaPosition);
 
+typedef struct fileInfo{
+	int fileSize;
+	char fileName[100];
+	int fileLocation;
+
+} fileInfo;
+
+fileInfo * GetFileInfo (char * fname);
+
 void runFSLowTest();  //Do not use this, for testing only
 
 #define MINBLOCKSIZE 512
