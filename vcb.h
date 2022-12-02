@@ -14,13 +14,17 @@
 #ifndef _VCB_H
 #define _VCB_H
 
-typedef struct VolumeBlock 
-{
-    int freeSpace; //location of freespace
-    int numBlocks; //number of blocks in memory
-    int bSize; //size of each block in memory
-    int rootDir; //location of root directory
-    int magicNum; //signature
-}VolumeBlock; 
+typedef struct VolumeControlBlock{
+    int magicNum; // a magic number to identify the disk
+    // char volumeName[256]; //name of the volume
+
+    // disk layout
+
+    int numOfFreeBlocks; // free blocks
+    int sizeOfBlock;    // 512 bytes
+    int rootDirectory;    // reference to the root
+    int freeSpacePointer; //free space pointer using bitmap
+
+} VolumeBlock; 
 
 #endif

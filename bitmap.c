@@ -26,11 +26,11 @@
 
 
 int allocate(int numBlocks, VolumeBlock *buffer, char*bitmap){
-    int returnSpace = buffer->freeSpace; //Save location of freespace
+    int returnSpace = buffer->freeSpacePointer; //Save location of freespace
     //printf("Allocating %d blocks ----\n", numBlocks);
     for(int i = 0; i < numBlocks; i++){
-        setBit(bitmap, buffer->freeSpace); //set bits from 0 to 1
-        buffer->freeSpace++; 
+        setBit(bitmap, buffer->freeSpacePointer); //set bits from 0 to 1
+        buffer->freeSpacePointer++; 
     }
 
     LBAwrite(bitmap, 5, 1);

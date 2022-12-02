@@ -45,16 +45,16 @@ int initFileSystem (uint64_t numberOfBlocks, uint64_t blockSize){
 		printf ("Initializing File System with %ld blocks with a block size of %ld\n", numberOfBlocks, blockSize);
 
 		// Initialize VCB
-		VCBbuffer->numBlocks = numberOfBlocks;
-		VCBbuffer->bSize = blockSize;
+		VCBbuffer->numOfFreeBlocks = numberOfBlocks;
+		VCBbuffer->sizeOfBlock = blockSize;
 		VCBbuffer->magicNum = 999;
-		VCBbuffer->freeSpace=0;
+		VCBbuffer->freeSpacePointer=0;
 
 		// Initialize bitmap
 		//printf("%d\n", bitmapSize);
 		for(int i = 0; i < bitmapSize+1; i++){
-			setBit(bitmap, VCBbuffer->freeSpace);
-			VCBbuffer->freeSpace++; //increment
+			setBit(bitmap, VCBbuffer->freeSpacePointer);
+			VCBbuffer->freeSpacePointer++; //increment
 		}
 		LBAwrite(bitmap, 5, 1);
 
@@ -63,25 +63,25 @@ int initFileSystem (uint64_t numberOfBlocks, uint64_t blockSize){
 		int deBlocks = ceil(((double)deSize*51.0)/blockSize); //number of blocks needed by root
 		//printf("de block size %d\n", deSize);
 		for(int i = 0; i < deNum; i++){
-			root[i].fileLocation = 0; //if fileLocation is 0, we know it is free
+			root[i].location = 0; //if fileLocation is 0, we know it is free
 		}
 		int start = allocate(deBlocks, VCBbuffer, bitmap); //get starting location from allocate
 
-		root[0].fileSize=deSize*deNum;
-		root[0].fileLocation=start;
+		root[0].size=deSize*deNum;
+		root[0].location=start;
 		strcpy(root[0].fileName, ".");
 		root[0].isDir=1; //root is a directory
-		root[0].created=(int)time(NULL);
+		root[0].createdDate=(int)time(NULL);
 
-		root[1].fileSize=deSize*deNum; //root is its own parent
-		root[1].fileLocation=start;
+		root[1].size=deSize*deNum; //root is its own parent
+		root[1].location=start;
 		strcpy(root[1].fileName, "..");
 		root[1].isDir=1;
-		root[1].created=(int)time(NULL);
+		root[1].createdDate=(int)time(NULL);
 
 
 
-		VCBbuffer->rootDir=start; //Set location of Root directory
+		VCBbuffer->rootDirectory=start; //Set location of Root directory
 		
 		LBAwrite(root, deBlocks, start);
 		LBAwrite(VCBbuffer, 1, 0); //write buffer last, we just updated root location

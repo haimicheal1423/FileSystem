@@ -17,15 +17,15 @@
 #include <stdlib.h>
 
 
-typedef struct directoryEntry
-{
-	int fileLocation; //Location of file
-    int fileSize; //Size of individual file
-    char fileName[36]; //Name of file
-    int created; //Date file was created
-    int modified; //Date file was modified
-    int accessed; //Last date of access
-    int isDir; //Determine if it's a directory or not
-}directoryEntry;
+typedef struct ValidCStruct{
+    char fileName[255]; // name of the directory
+    int location; // location of the directory
+    int size; // size of the directory
+    int lastModifiedDate; // time last modified
+    int createdDate; // when the directory was created
+    int accessedTime; // last accessed time
+    int isDir; // Determine if it's dir or not
+
+} directoryEntry;
 
 #endif

@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "readline.h": "c",
-        "stddef.h": "c"
+        "stddef.h": "c",
+        "directory_entry.h": "c"
     }
 }

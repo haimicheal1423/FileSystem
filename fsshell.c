@@ -1,9 +1,9 @@
 /**************************************************************
-* Class:  CSC-415-0# - Fall 2022
-* Names: 
-* Student IDs:
-* GitHub Name:
-* Group Name:
+* Class:  CSC-415-02 Fall 2022
+* Names: Sajan Gurung, Michael Hua, Deep Dhorajiya, Ron Elijah Rivera
+* Student IDs: 921149577, 918729206, 920842114, 921656746
+* GitHub Name: michealhuaa
+* Group Name: Team Buffer
 * Project: Basic File System
 *
 * File: fsShell.c
@@ -37,15 +37,15 @@
 
 /****   SET THESE TO 1 WHEN READY TO TEST THAT COMMAND ****/
 #define CMDLS_ON	1
-#define CMDCP_ON	0
-#define CMDMV_ON	0
+#define CMDCP_ON	1
+#define CMDMV_ON	1
 #define CMDMD_ON	1
 #define CMDRM_ON	1
 #define CMDCP2L_ON	0
 #define CMDCP2FS_ON	0
 #define CMDCD_ON	1
 #define CMDPWD_ON	0
-#define CMDTOUCH_ON	1
+#define CMDTOUCH_ON	0
 #define CMDCAT_ON	0
 
 
