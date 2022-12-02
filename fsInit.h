@@ -24,8 +24,6 @@
 #include "b_io.h"
 
 #include <dirent.h>
-
-
 #define FT_REGFILE	DT_REG
 #define FT_DIRECTORY DT_DIR
 #define FT_LINK	DT_LNK
@@ -38,7 +36,7 @@ typedef u_int32_t uint32_t;
 #endif
 
 int initFileSystem (uint64_t numberOfBlocks, uint64_t blockSize);
-VCB*getVCB();
+VolumeBlock*getVCB();
 char*getBitmap();
 void exitFileSystem();
 

@@ -11,14 +11,21 @@
 * Description: Directory entry for our file system
 *
 **************************************************************/
+#ifndef _directoryentry_H
+#define _directoryentry_H
 
-typedef struct ValidCStruct{
-    char directoryName[255]; // name of the directory
-    int location; // location of the directory
-    int size; // size of the directory
-    int lastModifiedDate; // time last modified
-    int createdDate; // when the directory was created
-    int accessedTime; // last accessed time
-    int isDir; // Determine if it's dir or not
+#include <stdlib.h>
 
-} directory_entry;
+
+typedef struct directoryEntry
+{
+	int fileLocation; //Location of file
+    int fileSize; //Size of individual file
+    char fileName[36]; //Name of file
+    int created; //Date file was created
+    int modified; //Date file was modified
+    int accessed; //Last date of access
+    int isDir; //Determine if it's a directory or not
+}directoryEntry;
+
+#endif

@@ -12,11 +12,17 @@
 *	your filesystem.
 *
 **************************************************************/
+
 #ifndef _MFS_H
 #define _MFS_H
+
+#include <stdlib.h>
+#include <stddef.h>
 #include <sys/types.h>
 #include <unistd.h>
 #include <time.h>
+#include "vcb.h"
+#include "directory_entry.h"
 
 #include "b_io.h"
 
@@ -59,15 +65,15 @@ int fs_mkdir(const char *pathname, mode_t mode);
 int fs_rmdir(const char *pathname);
 
 // Directory iteration functions
-fdDir * fs_opendir(const char *pathname);
-struct fs_diriteminfo *fs_readdir(fdDir *dirp);
+fdDir * fs_opendir(const char *name); //done
+struct fs_diriteminfo *fs_readdir(fdDir *dirp); //done
 int fs_closedir(fdDir *dirp);
 
 // Misc directory functions
-char * fs_getcwd(char *pathname, size_t size);
-int fs_setcwd(char *pathname);   //linux chdir
-int fs_isFile(char * filename);	//return 1 if file, 0 otherwise
-int fs_isDir(char * pathname);		//return 1 if directory, 0 otherwise
+char * fs_getcwd(char *buf, size_t size); //done
+int fs_setcwd(char *buf);   //linux chdir //done
+int fs_isFile(char * path);	//return 1 if file, 0 otherwise
+int fs_isDir(char * path);		//return 1 if directory, 0 otherwise
 int fs_delete(char* filename);	//removes a file
 
 
@@ -85,6 +91,12 @@ struct fs_stat
 	};
 
 int fs_stat(const char *path, struct fs_stat *buf);
+
+int parsePath(char pathname[], directoryEntry* newDir); //done
+int recursive(char pathname[], directoryEntry* newDir); //done
+int getPath(int location); //done
+char* getFileName(directoryEntry* newDir);
+int fs_mvdir(const char *pathname, const char *destination);
 
 #endif
 
