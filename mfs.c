@@ -12,7 +12,10 @@
 *
 *
  **************************************************************/
+<<<<<<< HEAD
 
+=======
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/types.h>
@@ -35,6 +38,7 @@ int currentFiledir;
 int mkDirLocation;
 char lastWord[30];
 
+<<<<<<< HEAD
 /*struct fs_diriteminfo *fs_readdir(fdDir *dirp){
     //printf("readdir runs\n");
     struct fs_diriteminfo*info = malloc(300); //fix later
@@ -63,13 +67,19 @@ char lastWord[30];
     //printf("readdir ends\n");
     return info;
 }*/
+=======
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
 
 struct fs_diriteminfo *fs_readdir(fdDir *dirp){ //WORKING currently
     //printf("readdir runs\n");
     struct fs_diriteminfo*info = malloc(300); //fix later
     static int counter = 0;
     //printf("COUNTER CURRENTLY IS AT %d\n", counter);
+<<<<<<< HEAD
     directoryEntry*newDir = malloc(60*52);
+=======
+    directory_entry*newDir = malloc(60*52);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
     if(dirp[counter].d_reclen == 0){
         counter = 0;
         //printf("RETURNING NULL\n");
@@ -83,7 +93,11 @@ struct fs_diriteminfo *fs_readdir(fdDir *dirp){ //WORKING currently
     }
     //printf("reading in file at %d name: %s\n", dirp[counter].directoryStartLocation, newDir[i].fileName);
 
+<<<<<<< HEAD
     strcpy(info->d_name, newDir[i].fileName);
+=======
+    strcpy(info->d_name, newDir[i].directoryName);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
     //printf("START LOCATION position %d\n", dirp[counter].directoryStartLocation);
     //printf("entry position %d\n", dirp[counter].dirEntryPosition);
     //printf("Value of fileName %s\n", newDir[0].fileName);
@@ -93,6 +107,7 @@ struct fs_diriteminfo *fs_readdir(fdDir *dirp){ //WORKING currently
     //printf("info->fileName %s\n", info->d_name);
     return info;
 }
+<<<<<<< HEAD
 
 /*struct fs_diriteminfo *fs_readdir(fdDir *dirp){ //WORKING currently
     //printf("readdir runs\n");
@@ -137,6 +152,21 @@ int fs_isDir(char * path){
 
     if(location == -1){
         //printf("location not found\n");
+=======
+ 
+
+int fs_isDir(char * path){
+    //printf("isdir runs\n");
+    directory_entry*newDir = malloc(60*52);
+    //printf("ROOT AT %d", getVCB()->rootDir);
+    LBAread(newDir, 6, getVCB()->rootDirectory);
+
+    char temp[140];
+    strcpy(temp, path);
+    int location = parsePath(temp, newDir);
+
+    if(location == -1){
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
         return -1;
     }
     LBAread(newDir, 6, location); //fix size later
@@ -150,7 +180,10 @@ int fs_isFile(char * path){
 }
 
 int fs_closedir(fdDir *dirp){
+<<<<<<< HEAD
     //printf("closeddir runs\n");
+=======
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
     dirp = NULL;
 	free(dirp);
 	return 1;
@@ -159,10 +192,17 @@ int fs_closedir(fdDir *dirp){
 
 fdDir * fs_opendir(const char *name){
     //printf("opendir runs\n");
+<<<<<<< HEAD
     directoryEntry*newDir = NULL;
     newDir = malloc(60*52);
 
     LBAread(newDir, 6, getVCB()->rootDir);
+=======
+    directory_entry*newDir = NULL;
+    newDir = malloc(60*52);
+
+    LBAread(newDir, 6, getVCB()->rootDirectory);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
 
     char temp[140];
     strcpy(temp, cwd);
@@ -179,15 +219,23 @@ fdDir * fs_opendir(const char *name){
     unsigned short x = 5;
 
     for(int i = 0; i < 51; i++){
+<<<<<<< HEAD
         if(newDir[i].fileLocation!=0){
             dirArray[counter].d_reclen=(unsigned short)newDir[i].fileSize;
             //dirArray->d_reclen=5;
             dirArray[counter].directoryStartLocation = newDir[i].fileLocation;
+=======
+        if(newDir[i].location!=0){
+            dirArray[counter].d_reclen=(unsigned short)newDir[i].size;
+            //dirArray->d_reclen=5;
+            dirArray[counter].directoryStartLocation = newDir[i].size;
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
             dirArray[counter].dirEntryPosition = i;
             //dirArray++;
             counter++;
             dirArray = (fdDir*)realloc(dirArray, (counter+1)*(sizeof(fdDir)));
             //dirArray++;
+<<<<<<< HEAD
             //printf("ADDING TO dirArray\n");
         }
     }
@@ -202,6 +250,11 @@ fdDir * fs_opendir(const char *name){
     dirArray--;
     dirArray--;
     dirArray--;*/
+=======
+        }
+    }
+
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
     return dirArray;
 }
 
@@ -213,8 +266,13 @@ char * fs_getcwd(char *buf, size_t size){
 
 int fs_stat(const char *path, struct fs_stat *buf){
     //buf = malloc(sizeof(struct fs_stat));
+<<<<<<< HEAD
     directoryEntry*newDir = malloc(60*52);
     LBAread(newDir, 6, getVCB()->rootDir);
+=======
+    directory_entry*newDir = malloc(60*52);
+    LBAread(newDir, 6, getVCB()->rootDirectory);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
 
     char temp[140];
     strcpy(temp, path);
@@ -225,10 +283,17 @@ int fs_stat(const char *path, struct fs_stat *buf){
         return -1;
     }
     LBAread(newDir, 6, location);
+<<<<<<< HEAD
     buf->st_blksize = getVCB()->bSize;
     buf->st_blocks = ceil(((double)60*51.0)/getVCB()->bSize);
     buf->st_createtime = newDir->created;
     buf->st_size = newDir->fileSize;
+=======
+    buf->st_blksize = getVCB()->sizeOfBlock;
+    buf->st_blocks = ceil(((double)60*51.0)/getVCB()->sizeOfBlock);
+    buf->st_createtime = newDir->createdDate;
+    buf->st_size = newDir->size;
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
     return 0;
 
 }
@@ -238,10 +303,17 @@ int fs_setcwd(char *buf){
     //directoryEntry*currentDir;
     //int numBlocks = (3600/VCBbuffer->bSize);
     //printf("NUMBLOCKs %d\n", numBlocks);
+<<<<<<< HEAD
     directoryEntry*root;
     directoryEntry*newDir = malloc(60*52);
     
     LBAread(newDir, 6, getVCB()->rootDir);
+=======
+    directory_entry*root;
+    directory_entry*newDir = malloc(60*52);
+    
+    LBAread(newDir, 6, getVCB()->rootDirectory);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
     //int location = parseDir(buf, VCBbuffer, root, newDir);
 
     //char*path = strdup("./one");
@@ -252,6 +324,7 @@ int fs_setcwd(char *buf){
     if(strcmp(buf, ".")==0){
         return 0;
     }
+<<<<<<< HEAD
     /*if(strcmp(buf, ".")!=0){ // unedit if works later ---------------------------
         printf("Finding relative path\n"); //maybe delete null
         strcpy(relativePath, cwd);
@@ -263,6 +336,8 @@ int fs_setcwd(char *buf){
         strcpy(relativePath, buf);
     }
     strcpy(temp, relativePath);*/
+=======
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
 
     int location = parsePath(temp, newDir);
     if(location!=-1){
@@ -277,6 +352,7 @@ int fs_setcwd(char *buf){
     return -1;
     
 }
+<<<<<<< HEAD
 /*int parseDir(char* buf, VolumeBlock *VCBbuffer, directoryEntry* root, directoryEntry* newDir){
     for(int i = 1; i < 51; i++){ //skip first iteration
         printf("comparing %s, %s\n", newDir[i].fileName, buf);
@@ -304,13 +380,27 @@ char* getFileName(directoryEntry* newDir){
         if(parentDir[i].fileLocation == newDir[0].fileLocation){
             //printf("filename is %s", parentDir[i].fileName);
             return parentDir[i].fileName;
+=======
+
+char* getFileName(directory_entry* newDir){
+    directory_entry*parentDir = malloc(60*52);
+    LBAread(parentDir, 6, newDir[1].location);
+    for(int i = 0; i < 51; i++){
+        if(parentDir[i].location == newDir[0].location){
+            //printf("filename is %s", parentDir[i].fileName);
+            return parentDir[i].directoryName;
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
         }
     }
 }
 
 int getPath(int location){ //FIX LATER, array is hardcoded
     char newPath[140] = "";
+<<<<<<< HEAD
     directoryEntry*newDir = malloc(60*52);
+=======
+    directory_entry*newDir = malloc(60*52);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
     //printf("????????????????????this runs\n");
     int num = 10;
     int size;
@@ -325,8 +415,13 @@ int getPath(int location){ //FIX LATER, array is hardcoded
     int count = 0;
     strcat(pathArray[count++], getFileName(newDir));
 
+<<<<<<< HEAD
     while(newDir[0].fileLocation!=getVCB()->rootDir){
         LBAread(newDir, 6, newDir[1].fileLocation);
+=======
+    while(newDir[0].location!=getVCB()->rootDirectory){
+        LBAread(newDir, 6, newDir[1].location);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
         strcat(pathArray[count], getFileName(newDir));
         count++;
         //pathArray = (char*)realloc(pathArray, (count+1)*40);
@@ -345,7 +440,11 @@ int getPath(int location){ //FIX LATER, array is hardcoded
     //printf("NEW PATH: ----------------- %s\n", newPath);
 }
 
+<<<<<<< HEAD
 int parsePath(char pathname[], directoryEntry* newDir){
+=======
+int parsePath(char pathname[], directory_entry* newDir){
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
     char temp[140];
     char relativePath[140];
 
@@ -388,7 +487,11 @@ int parsePath(char pathname[], directoryEntry* newDir){
             parseDir(pathname, VCBbuffer, root, newDir);
         }*/
 }
+<<<<<<< HEAD
 int recursive(char pathname[], directoryEntry* newDir){
+=======
+int recursive(char pathname[], directory_entry* newDir){
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
     for(int i = 0; i < 51; i++){ //skip first 2 iterations, irrelevant
         /*if (cancel){
 
@@ -402,14 +505,20 @@ int recursive(char pathname[], directoryEntry* newDir){
             return newDir[0].fileLocation;
         }*/
         strcpy(lastWord, token);
+<<<<<<< HEAD
         mkDirLocation = newDir[0].fileLocation;
         if(strcmp(newDir[i].fileName, token) == 0){
+=======
+        mkDirLocation = newDir[0].location;
+        if(strcmp(newDir[i].directoryName, token) == 0){
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
             //newDir = &newDir[i];
             //LBAread(newDir, 6, newDir[i].fileLocation);
             token = strtok_r(NULL, "/", &savePtr);
             //printf("current token in loop %s\n", token);
             if(token==NULL){
                 //printf("this found the number, filename %s, returning location %d\n", newDir[i].fileName, newDir[i].fileLocation);
+<<<<<<< HEAD
                 currentSize = ceil((double)newDir[i].fileSize/blockSize);
                 currentFiledir = newDir[i].isDir;
                 //printf("current blocks = %d", currentSize);
@@ -417,6 +526,15 @@ int recursive(char pathname[], directoryEntry* newDir){
             }
             else{
                 LBAread(newDir, 6, newDir[i].fileLocation);
+=======
+                currentSize = ceil((double)newDir[i].size/blockSize);
+                currentFiledir = newDir[i].isDir;
+                //printf("current blocks = %d", currentSize);
+                return newDir[i].location;
+            }
+            else{
+                LBAread(newDir, 6, newDir[i].location);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
                 if(newDir->isDir==0){
                     return -1;
                 }
@@ -437,9 +555,15 @@ int fs_rmdir(const char *pathname){
     strcpy(temp, pathname);
 
 
+<<<<<<< HEAD
     directoryEntry*newDir = malloc(60*52);
     directoryEntry*parentDir = malloc(60*52);
     LBAread(newDir, 6, getVCB()->rootDir);
+=======
+    directory_entry*newDir = malloc(60*52);
+    directory_entry*parentDir = malloc(60*52);
+    LBAread(newDir, 6, getVCB()->rootDirectory);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
     int location = parsePath(temp, newDir);
     
     if(location == -1){
@@ -452,12 +576,17 @@ int fs_rmdir(const char *pathname){
     }
     LBAread(newDir, currentSize, location);
     for(int i = 2; i < 51; i++){ //iterate starting after the . and ..
+<<<<<<< HEAD
         if(newDir[i].fileLocation > 0){
+=======
+        if(newDir[i].location > 0){
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
             printf("File is not empty, delete directory/file at index %d.\n", i);
             return -1;
         }
     }
     resetBits(getBitmap(), location, currentSize);
+<<<<<<< HEAD
     LBAread(parentDir, 6, newDir[1].fileLocation);
     for(int i = 2; i < 51; i++){
         if(parentDir[i].fileLocation == newDir[0].fileLocation){
@@ -465,6 +594,15 @@ int fs_rmdir(const char *pathname){
             //printf("parentDir[i] is %s\n", parentDir[i].fileName);
             strcpy(parentDir[i].fileName, "");
             LBAwrite(parentDir, 6, parentDir[0].fileLocation);
+=======
+    LBAread(parentDir, 6, newDir[1].location);
+    for(int i = 2; i < 51; i++){
+        if(parentDir[i].location == newDir[0].location){
+            parentDir[i].location = 0;
+            //printf("parentDir[i] is %s\n", parentDir[i].fileName);
+            strcpy(parentDir[i].directoryName, "");
+            LBAwrite(parentDir, 6, parentDir[0].location);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
             break;
         }
     }
@@ -478,11 +616,19 @@ int fs_mvdir(const char *source, const char *destination){
     char temp[140];
     strcpy(temp, source);
 
+<<<<<<< HEAD
     directoryEntry*newDir = malloc(60*52);
     directoryEntry*destDir = malloc(60*52);
     directoryEntry*parentDir = malloc(60*52);
 
     LBAread(newDir, 6, getVCB()->rootDir);
+=======
+    directory_entry*newDir = malloc(60*52);
+    directory_entry*destDir = malloc(60*52);
+    directory_entry*parentDir = malloc(60*52);
+
+    LBAread(newDir, 6, getVCB()->rootDirectory);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
     int location = parsePath(temp, newDir);
 
     if(location == -1){ //check if path is valid
@@ -502,7 +648,11 @@ int fs_mvdir(const char *source, const char *destination){
         strcpy(last, tok);
         tok = strtok(NULL, "/");
     }
+<<<<<<< HEAD
     LBAread(newDir, 6, getVCB()->rootDir);
+=======
+    LBAread(newDir, 6, getVCB()->rootDirectory);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
     int location2 = parsePath(temp, newDir);
 
     if(location == -1){ //check if path is valid
@@ -515,11 +665,16 @@ int fs_mvdir(const char *source, const char *destination){
     //printf("dest file name %s\n", getFileName(destDir));
 
     for(int i = 0; i < 51; i++){
+<<<<<<< HEAD
         if(strcmp(destDir[i].fileName, last) == 0){
+=======
+        if(strcmp(destDir[i].directoryName, last) == 0){
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
             printf("File of same name already exists, cannot move to destination.\n");
             return -1;
         }
     }
+<<<<<<< HEAD
     LBAread(parentDir, 6, newDir[1].fileLocation);
     for(int i = 0; i < 51; i++){
         if(parentDir[i].fileLocation == newDir[0].fileLocation){
@@ -539,12 +694,38 @@ int fs_mvdir(const char *source, const char *destination){
             newDir[1].fileLocation = destDir[0].fileLocation;
             destDir[i].isDir = 1;
             destDir[i].fileSize = newDir[0].fileSize;
+=======
+    LBAread(parentDir, 6, newDir[1].location);
+    for(int i = 0; i < 51; i++){
+        if(parentDir[i].location == newDir[0].location){
+            strcpy(file, parentDir[i].directoryName);
+            strcpy(parentDir[i].directoryName, "");
+            parentDir[i].location = 0;
+            parentDir[i].size = 0;
+        }
+    }
+    LBAwrite(parentDir, 6, parentDir[0].location);
+
+    for(int i = 0; i < 51; i++){
+        if(destDir[i].location == 0){
+            //printf("target found at %d\n", i);
+            strcpy(destDir[i].directoryName, file);
+            destDir[i].location = newDir[0].location;
+            newDir[1].location = destDir[0].location;
+            destDir[i].isDir = 1;
+            destDir[i].size = newDir[0].size;
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
             //printf("dest[i] filename is %s at %d write location at %d\n", destDir[i].fileName, destDir[0].fileLocation, location2);
             break;
         }
     }
+<<<<<<< HEAD
     LBAwrite(destDir, 6, destDir[0].fileLocation);
     LBAwrite(newDir, 6, newDir[0].fileLocation);
+=======
+    LBAwrite(destDir, 6, destDir[0].location);
+    LBAwrite(newDir, 6, newDir[0].location);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
 
 
 }
@@ -553,8 +734,13 @@ int fs_mvdir(const char *source, const char *destination){
 int fs_mkdir(const char *pathname, mode_t mode){
 
 
+<<<<<<< HEAD
     directoryEntry*newDir = malloc(60*52);
     LBAread(newDir, 6, getVCB()->rootDir);
+=======
+    directory_entry*newDir = malloc(60*52);
+    LBAread(newDir, 6, getVCB()->rootDirectory);
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
 
     char temp[140];
     char getLastWord[140];
@@ -576,15 +762,22 @@ int fs_mkdir(const char *pathname, mode_t mode){
         int start = allocate(6, getVCB(), getBitmap());
         LBAread(newDir, 6, mkDirLocation);
         //printf("mkdir location %d\n", mkDirLocation);
+<<<<<<< HEAD
         directoryEntry*createDir = malloc(60*51);
         for(int i = 0; i < 51; i++){
 			if(newDir[i].fileLocation == 0){
+=======
+        directory_entry*createDir = malloc(60*51);
+        for(int i = 0; i < 51; i++){
+			if(newDir[i].location == 0){
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
                 //printf("INDEX FOUND %d\n", i);
                 indexPlace = i;
                 break;
             } 
 		}
         //printf("ADDING NEW DIR\n");
+<<<<<<< HEAD
 		strcpy(newDir[indexPlace].fileName, last);
 		newDir[indexPlace].fileSize=newDir[0].fileSize; //root is its own parent
 		newDir[indexPlace].fileLocation=start;
@@ -595,6 +788,18 @@ int fs_mkdir(const char *pathname, mode_t mode){
         strcpy(createDir[0].fileName, ".");
 		createDir[1] = newDir[0];
         strcpy(createDir[1].fileName, "..");
+=======
+		strcpy(newDir[indexPlace].directoryName, last);
+		newDir[indexPlace].size=newDir[0].size; //root is its own parent
+		newDir[indexPlace].location=start;
+		newDir[indexPlace].isDir=1;
+		newDir[indexPlace].createdDate=newDir[0].createdDate; //set time later
+		directory_entry*new2 = malloc(60*51); //replace constants later
+		createDir[0] = newDir[indexPlace];
+        strcpy(createDir[0].directoryName, ".");
+		createDir[1] = newDir[0];
+        strcpy(createDir[1].directoryName, "..");
+>>>>>>> 47957e672a4e7a05560f86ba0d5762c8628c270f
         LBAwrite(createDir, 6, start);
         LBAwrite(newDir, 6, mkDirLocation);
         return 1;
